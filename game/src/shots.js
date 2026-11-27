@@ -7,7 +7,7 @@ import { autopilot } from './pilot.js';
 import { SCREEN_OVER, SCREEN_PLAY, SCREEN_TITLE } from './render.js';
 import { STEP } from './config.js';
 
-const PLAY_SECONDS = 22;
+const PLAY_SECONDS = 4.5;
 const STEP_LIMIT = 60 * 180;
 
 /** Run the autopilot until `stop` says so, or the step cap; returns the events it saw. */

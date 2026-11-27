@@ -560,7 +560,7 @@ export function createRenderer(canvas) {
     return `Mendarat di landasan ${mission.runwayName}`;
   }
 
-  function drawHud(state, best) {
+  function drawHud(state, screen, best) {
     const plane = state.plane;
     const altFt = Math.max(0, Math.round((FIELD.seaY - plane.y) * 3));
     const spdKt = Math.round(plane.speed * 0.9);
@@ -593,8 +593,8 @@ export function createRenderer(canvas) {
     text(hdgLabel(90), 340, 104, 20, PALETTE.text, 'left');
     text('°', 418, 104, 14, PALETTE.muted, 'left');
     text(`V/S ${vs >= 0 ? '+' : ''}${vs}`, 470, 104, 16, vs >= 0 ? PALETTE.good : PALETTE.muted, 'left');
-    // Transient banner.
-    if (state.messageT > 0 && state.message) {
+    // Transient banner: play only, so it never collides with the title or day summary.
+    if (screen === SCREEN_PLAY && state.messageT > 0 && state.message) {
       context.fillStyle = 'rgba(11, 30, 51, 0.78)';
       const w = 560;
       roundRect((FIELD.width - w) / 2, 128, w, 40, 10);
@@ -659,7 +659,7 @@ export function createRenderer(canvas) {
     drawPlane(state);
     context.restore();
     drawPanel(state);
-    drawHud(state, best);
+    drawHud(state, screen, best);
     if (screen === SCREEN_TITLE) drawTitle(state, best);
     else if (screen === SCREEN_PAUSED) {
       overlay(0.5);
